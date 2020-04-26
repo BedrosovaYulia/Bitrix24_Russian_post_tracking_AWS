@@ -2,13 +2,14 @@ import json
 from zeep import Client
 from botocore.vendored import requests
 from urllib.parse import parse_qs
+import os
 
 def lambda_handler(event, context):
     
-    url = 'https://tracking.russianpost.ru/rtm34?wsdl'
+    url = os.environ['post_url']
     barcode = event['barcode']
-    my_login = '************'
-    my_password = '************'
+    my_login = os.environ['login']
+    my_password = os.environ['password']
     
     client = Client(url)
     
@@ -53,13 +54,14 @@ def lambda_handler(event, context):
         info=info+'\n'
     
     #print(info)
-    #Отправляем результат в Битрикс24:
+    #Send data to the B24:
     data = {
             "user_id": 1,
             "message": barcode+' '+info+'\n '+FinalStatus
         }
 
-    response = requests.get('https://bedrosova.bitrix24.ru/rest/1/*****************/im.message.add.json',data)
+    hook=os.environ['hook']
+    response = requests.get(hook,data)
     
     return {
         'statusCode': 200,
