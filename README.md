@@ -5,7 +5,7 @@
  What do we need to do for the intergation:
 1) Get the login and the password for integration on the Russian Post website: https://www.pochta.ru/support/business/api
 
-2) Prepare a Lambda Layer with a library for working with SOAP. I chose the open-source Zeep library.
+2) Prepare a Lambda Layer with a library for working with SOAP. I chose the open-source Zeep library. http://bedrosovayulia.blogspot.com/2019/07/how-to-reate-aws-lambda-layer-with-zeep.html
 
 3) On the side of Bitrix24, we need to create an inbound webhook with the right to send messages and with access to the universal lists (in my case) or, perhaps, to CRM - depending on where you need to save the checking result.
 
